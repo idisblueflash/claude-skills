@@ -241,56 +241,7 @@ Aspect ratio: 8:3 ultra-wide cinematic panel.
 
 ---
 
-### Step 6: 搜尋參考圖
-
-確認情緒方向和場景後，立即搜索 Wikimedia Commons 找真實相關照片作為解剖/姿態參考。
-
-**搜索步驟：**
-
-1. 在 Wikimedia Commons 搜索與場景主體相關的圖片（動物行為、自然場景）：
-   - 搜索 URL 格式：`https://commons.wikimedia.org/w/index.php?search=KEYWORD&title=Special:MediaSearch&type=image`
-   - 關鍵字聚焦在**動作和姿態**，例如：`leopard cub climbing tree`、`eagle fledgling cliff`
-2. 列出 4–6 張候選圖的直接 URL（`upload.wikimedia.org` 連結），每條附一句描述
-
-向用戶展示：
-> 以下是找到的參考圖連結，請選擇你想用的（可複製 URL 貼回給我）：
-> 1. [描述] → URL
-> 2. [描述] → URL
-> ...
-
-**用戶貼回 URL 後，運行下載腳本：**
-
-```bash
-./scripts/fetch-references.py \
-  "URL1" "URL2" "URL3" \
-  --topic TOPIC-SLUG
-```
-
-腳本自動下載、縮小至 800px、存入 `output/covers/references/`，並輸出文件路徑供後續步驟使用。
-
-**如果某張圖下載失敗（403、超時等）：**
-
-告知用戶哪張失敗，請他：
-
-> 請在瀏覽器打開這個 URL，把圖片保存到本地，然後**把文件拖入對話框**（不是截圖粘貼）。
-
-拖入方式的原因：拖文件進 Claude Code 時，Claude 同時能看到圖片內容 **也能獲得本地文件路徑**，可以直接對該路徑做縮圖和保存操作：
-
-```bash
-python3 -c "
-from PIL import Image
-img = Image.open('USER_DRAGGED_FILE_PATH')
-img.thumbnail((800, 800))
-img.convert('RGB').save('output/covers/references/TOPIC-N.jpg', 'JPEG', quality=75)
-print('Saved.')
-"
-```
-
-流程繼續，不因單張失敗而中斷。
-
----
-
-### Step 7: Choose a camera angle
+### Step 6: Choose a camera angle
 Match the confirmed mood (from Step 5) to an angle:
 
 | Mood | Camera Angle |
@@ -301,58 +252,14 @@ Match the confirmed mood (from Step 5) to an angle:
 | Tense / urgent | Dutch tilt, medium-close, chaotic framing |
 | Awe / discovery | Low angle, subject silhouetted against vast sky |
 
-### Step 8: Build the environment
+### Step 7: Build the environment
 The environment must **visually compress or overwhelm** the subject:
 - Urban: buildings, scaffolding, crowd, neon signs pressing in
 - Nature: giant leaves, bamboo, waves, storm clouds
 - Abstract: data streams, geometric shapes, converging lines
 - Interior: corridors, shelves, machinery, shadows
 
-### Step 9: Preview composition with ASCII art
-Before writing the full prompt, generate an ASCII art sketch showing the rough composition.
-
-**Rules for ASCII preview:**
-- Use a 8:3 ultra-wide aspect ratio frame: **64 chars × 12 lines** (monospace chars are ~2× taller than wide, so 64×0.5/12 ≈ 8:3)
-- Show camera angle by how the scene is framed (top-down = subject near bottom, worm's eye = subject near top)
-- Mark the figure as a tiny `○` or `人` (always small — ≤15% of frame, or ≤5% when an animal is present)
-- Mark environment elements with rough symbols: `▓` (dark mass), `│` (vertical), `─` (horizontal), `~` (water/waves), `/\` (foliage), `*` (light source)
-- **Rule-of-thirds grid**: always mark the 4 intersection points with `✦` in the ASCII frame. The animal/primary subject must sit on one of these `✦` points.
-- No detail — just masses, angles, and placement
-- Add a one-line caption below: `Camera: [angle] | Animal: [1/3 position] | Human: [corner] | Mood: [emotion]`
-
-**Rule-of-thirds intersections** (for a 64×12 frame):
-```
-col ~21 = left 1/3     col ~43 = right 1/3
-row ~4  = top 1/3      row ~8  = bottom 1/3
-
-Four intersection points:
-  ✦ top-left    (col 21, row 4)
-  ✦ top-right   (col 43, row 4)
-  ✦ bottom-left (col 21, row 8)
-  ✦ bottom-right(col 43, row 8)
-```
-
-**Example (bird's eye, swamp):**
-```
-╔══════════════════════════════════════════════════════════════╗
-║  /\/\    ▓▓▓▓▓▓▓▓▓▓▓    /\/\/\/\   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║ /\/\/\   ▓▓▓▓▓▓▓▓▓▓▓   /\/\/\/\/\  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓/\/\▓▓▓▓▓  ~~~✦~~  ▓▓▓▓ /\/\ ▓▓▓▓▓▓▓✦~~~  ▓▓▓▓▓▓▓▓▓▓  ║  ← row 4
-║▓▓▓▓▓▓▓▓▓▓▓  ~~ ○ ~~  ▓▓▓▓▓▓▓▓▓▓▓▓▓  ~~~ ~~~  ▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓  ~~~~~~~  ▓▓▓▓▓▓▓▓▓▓▓▓▓  ~~~~~~~  ▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓✦▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓✦▓▓▓▓▓▓▓▓▓▓▓▓  ║  ← row 8
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-╚══════════════════════════════════════════════════════════════╝
-Camera: ~90° bird's eye | Figure: top-left✦, tiny (○) | Mood: trapped
-```
-
-Ask: **"構圖大致這樣，要調整嗎？"** — wait for confirmation or edits before proceeding.
-
-### Step 10: Write and deliver the prompt
+### Step 8: Write and deliver the prompt
 After the user confirms the composition, run a three-layer self-check before outputting:
 
 | Layer | Check |
@@ -372,14 +279,10 @@ Paste directly into [Nano Banana](https://nano.banana.com).
 Use `scripts/generate-cover.py` in this repo (requires `OPENROUTER_API_KEY` in `.env`):
 
 ```bash
-# First generation — include reference images downloaded in Step 6
-.claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" \
-  --input output/covers/references/TOPIC-1.jpg \
-          output/covers/references/TOPIC-2.jpg \
-          output/covers/references/TOPIC-3.jpg \
-  --size preview
+# First generation
+.claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" --size preview
 
-# Subsequent edits — use the generated image as base
+# Edit an existing image (image-to-image)
 .claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" --size preview   # draft
 .claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" --size medium    # review
 
