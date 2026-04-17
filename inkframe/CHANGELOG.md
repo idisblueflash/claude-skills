@@ -1,5 +1,27 @@
 # Changelog — inkframe skill
 
+## v2.2.0 — 2026-04-17
+
+**比例回退至 8:3**
+
+- 所有 prompt 模板、Quick Reference Card 中的比例从 `16:9` 改回 `8:3 ultra-wide`
+- `generate-cover.py` SIZE_PRESETS 从 `16:9` 改回 `8:3`
+- ASCII 构图预览帧从 64×18 改回 64×12（row ~4 / ~8 三分法坐标）
+
+---
+
+## v2.1.0 — 2026-04-17
+
+**16:9 比例统一**
+
+- 所有 prompt 模板、Quick Reference Card、示例 prompt 中的比例从 `16:6` 改为 `16:9`
+- `generate-cover.py` SIZE_PRESETS 从 `21:9` 改为 `16:9`
+- ASCII 构图预览帧从 64×12 调整为 64×18（monospace 字符高宽比约 2:1，64×18 对应 16:9）
+- 三分法坐标更新：row ~6（top 1/3）、row ~12（bottom 1/3）
+- ASCII 示例图重绘为 18 行版本，✦ 交点位置同步修正
+
+---
+
 ## v2.0.0 — 2026-04-17
 
 **三层 Prompt 框架**

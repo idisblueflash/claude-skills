@@ -1,6 +1,6 @@
 ---
 name: inkframe
-version: 2.0.0
+version: 2.2.0
 description: Generate Nano Banana (Google Gemini) prompts for cinematic newsletter cover images in dramatic ink storyboard style — extreme high-contrast black and white, bold brushstrokes, woodcut-like rendering, used in professional film and animation pre-visualization. Use this skill whenever the user wants to create a newsletter cover image, a cover visual, a hero image for an article, or any cinematic illustration prompt. Also trigger when the user mentions "Nano Banana", "newsletter cover", "cover image", "封面图", "storyboard style", or asks to generate an AI image prompt for editorial or storytelling purposes.
 ---
 
@@ -133,7 +133,7 @@ in the image.
 — LAYER 3: Magic Words —
 ultra-detailed, cinematic lighting, woodcut print quality
 
-Aspect ratio: 16:6 ultra-wide cinematic panel.
+Aspect ratio: 8:3 ultra-wide cinematic panel.
 ```
 
 ---
@@ -167,7 +167,7 @@ in the image.
 — LAYER 3: Magic Words —
 [Append style amplifiers here, e.g. "cinematic lighting, ultra-detailed, woodcut print quality"]
 
-Aspect ratio: 16:6 ultra-wide cinematic panel.
+Aspect ratio: 8:3 ultra-wide cinematic panel.
 ```
 
 ---
@@ -312,11 +312,11 @@ The environment must **visually compress or overwhelm** the subject:
 Before writing the full prompt, generate an ASCII art sketch showing the rough composition.
 
 **Rules for ASCII preview:**
-- Use a 16:6 wide aspect ratio frame (e.g. 64 chars × 12 lines)
-- Show camera angle by how the scene is framed (top-down = subject at center-bottom, worm's eye = wide top)
+- Use a 8:3 ultra-wide aspect ratio frame: **64 chars × 12 lines** (monospace chars are ~2× taller than wide, so 64×0.5/12 ≈ 8:3)
+- Show camera angle by how the scene is framed (top-down = subject near bottom, worm's eye = subject near top)
 - Mark the figure as a tiny `○` or `人` (always small — ≤15% of frame, or ≤5% when an animal is present)
 - Mark environment elements with rough symbols: `▓` (dark mass), `│` (vertical), `─` (horizontal), `~` (water/waves), `/\` (foliage), `*` (light source)
-- **Rule-of-thirds grid**: always mark the 4 intersection points with `✦` in the ASCII frame (at ~1/3 and ~2/3 of both width and height). The animal/primary subject must sit on one of these `✦` points.
+- **Rule-of-thirds grid**: always mark the 4 intersection points with `✦` in the ASCII frame. The animal/primary subject must sit on one of these `✦` points.
 - No detail — just masses, angles, and placement
 - Add a one-line caption below: `Camera: [angle] | Animal: [1/3 position] | Human: [corner] | Mood: [emotion]`
 
@@ -337,12 +337,17 @@ Four intersection points:
 ╔══════════════════════════════════════════════════════════════╗
 ║  /\/\    ▓▓▓▓▓▓▓▓▓▓▓    /\/\/\/\   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
 ║ /\/\/\   ▓▓▓▓▓▓▓▓▓▓▓   /\/\/\/\/\  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
-║▓▓▓/\/\▓▓▓▓▓  ~~~  ▓▓▓▓▓▓ /\/\ ▓▓▓▓▓▓▓  ~~~  ▓▓▓▓▓▓▓▓▓▓  ║
+║▓▓▓/\/\▓▓▓▓▓  ~~~✦~~  ▓▓▓▓ /\/\ ▓▓▓▓▓▓▓✦~~~  ▓▓▓▓▓▓▓▓▓▓  ║  ← row 4
 ║▓▓▓▓▓▓▓▓▓▓▓  ~~ ○ ~~  ▓▓▓▓▓▓▓▓▓▓▓▓▓  ~~~ ~~~  ▓▓▓▓▓▓▓▓▓  ║
 ║▓▓▓▓▓▓▓▓▓▓▓  ~~~~~~~  ▓▓▓▓▓▓▓▓▓▓▓▓▓  ~~~~~~~  ▓▓▓▓▓▓▓▓▓  ║
 ║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓✦▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓✦▓▓▓▓▓▓▓▓▓▓▓▓  ║  ← row 8
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
 ╚══════════════════════════════════════════════════════════════╝
-Camera: ~90° bird's eye | Figure: center, tiny (○) | Mood: trapped
+Camera: ~90° bird's eye | Figure: top-left✦, tiny (○) | Mood: trapped
 ```
 
 Ask: **"構圖大致這樣，要調整嗎？"** — wait for confirmation or edits before proceeding.
@@ -385,7 +390,7 @@ Use `scripts/generate-cover.py` in this repo (requires `OPENROUTER_API_KEY` in `
 ```
 
 Images are saved to `output/covers/` with timestamp filename.
-Size presets use aspect ratio `21:9` via OpenRouter `image_config`.
+Size presets use aspect ratio `8:3` via OpenRouter `image_config`.
 
 ---
 
@@ -445,7 +450,7 @@ No text, no letters, no handwriting, no annotations, no captions anywhere
 in the image.
 
 Mood: trapped, isolated, overwhelmed.
-Aspect ratio: 16:6 ultra-wide cinematic panel.
+Aspect ratio: 8:3 ultra-wide cinematic panel.
 ```
 
 ### 🏙️ Urban / Technology
@@ -470,7 +475,7 @@ No text, no letters, no handwriting, no annotations, no captions anywhere
 in the image.
 
 Mood: awe-struck, insignificant, determined.
-Aspect ratio: 16:6 ultra-wide cinematic panel.
+Aspect ratio: 8:3 ultra-wide cinematic panel.
 ```
 
 ### 💡 Abstract / Ideas
@@ -495,7 +500,7 @@ No text, no letters, no handwriting, no annotations, no captions anywhere
 in the image.
 
 Mood: overwhelmed, focused, searching.
-Aspect ratio: 16:6 ultra-wide cinematic panel.
+Aspect ratio: 8:3 ultra-wide cinematic panel.
 ```
 
 ---
@@ -527,5 +532,5 @@ LINES:       "radial speed lines / concentric ripples / converging perspective"
 STYLE REF:   "dramatic ink storyboard, cinematic pre-viz, woodcut-like"
 NO TEXT:     "No text, no letters, no handwriting, no annotations, no captions"
 MOOD:        one clear emotion word
-RATIO:       "16:6 ultra-wide cinematic panel"
+RATIO:       "8:3 ultra-wide cinematic panel"
 ```

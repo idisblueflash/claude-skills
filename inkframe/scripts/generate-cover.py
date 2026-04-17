@@ -8,10 +8,10 @@ Usage:
     ./scripts/generate-cover.py "your prompt" --size medium
     ./scripts/generate-cover.py "your prompt" --size full --output output/covers
 
-Size presets (all 8:3 / ultra-wide ratio):
-    preview  →  aspect 8:3, image_size 0.5K  (quick draft, cheapest)
-    medium   →  aspect 8:3, image_size 1K    (review quality)
-    full     →  aspect 8:3, image_size 2K    (final publish)
+Size presets (all 8:3 ultra-wide ratio):
+    preview  →  aspect 8:3, image_size 1K   (quick draft)
+    medium   →  aspect 8:3, image_size 1K   (review quality)
+    full     →  aspect 8:3, image_size 2K   (final publish)
 
 Aspect ratio is passed via image_config.aspect_ratio per OpenRouter spec.
 Image size is passed via image_config.image_size.
@@ -55,9 +55,9 @@ API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # (aspect_ratio, image_size) per OpenRouter image_config spec
 SIZE_PRESETS = {
-    "preview": ("21:9", "1K"),   # 0.5K not supported by this model
-    "medium":  ("21:9", "1K"),
-    "full":    ("21:9", "2K"),
+    "preview": ("8:3", "1K"),   # 0.5K not supported by this model
+    "medium":  ("8:3", "1K"),
+    "full":    ("8:3", "2K"),
 }
 
 
