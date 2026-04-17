@@ -1,5 +1,37 @@
 # Changelog — newsletter-cover-image skill
 
+## v1.8.0 — 2026-04-17
+
+**腳本路徑遷移**
+
+- 修正腳本路徑：`generate-cover.py` 從 `scripts/` 遷移至 `.claude/skills/show-dont-tell-image/scripts/`
+- 所有 SKILL.md 中的命令行示例同步更新為新路徑
+- Changelog 從 SKILL.md 移至獨立的 CHANGELOG.md 文件
+
+---
+
+## v1.7.0 — 2026-04-17
+
+**移除具名版權引用**
+
+- 移除所有對「Marcos Mateu-Mestre」及《Framed Ink》的具名引用，以規避潛在版權風險
+- 改以風格特徵描述取代：「dramatic ink storyboard style — extreme high-contrast B&W, bold brushstrokes, woodcut-like rendering」
+- 所有 prompt 模板、Core Style DNA、Quick Reference Card、示例 prompt 同步更新
+
+---
+
+## v1.6.0 — 2026-04-09
+
+**參考圖工作流**
+
+- 新增 Step 6：搜尋參考圖工作流（Wikimedia Commons 搜索 → 提供鏈接 → 用戶選擇 → 下載縮小）
+- 新增 `scripts/fetch-references.py`：接收用戶貼回的 URL，下載、縮小至 800px、存入 `output/covers/references/`
+- `scripts/generate-cover.py` 支持多張 `--input` 圖片
+- Step 10 首次生圖改為「提示詞 + 參考圖」一起傳入，顯著提升解剖準確度
+- 原 Step 6–9 順延為 Step 7–10
+
+---
+
 ## v1.5.0 — 2026-04-09
 
 **「Show, Don't Tell」感知設計層**
