@@ -1,5 +1,19 @@
 # Changelog — inkframe skill
 
+## v2.0.0 — 2026-04-17
+
+**三层 Prompt 框架**
+
+- 新增 Three-Layer Prompt Framework 章节，将 prompt 构建拆解为三层：
+  - Layer 1：具体名词（主体＋动作＋环境＋光线），每个维度附 few-shot 示例
+  - Layer 2：有视觉锚点的风格词，替代无效的情绪评价词；附 ink storyboard 适配版情绪→视觉词对照表（6 组 few-shot）
+  - Layer 3：魔法词，仅作末尾增强，不可替代前两层
+- Prompt Formula 重构：模板明确标注三层分隔，填写顺序清晰
+- Step 10 新增三层自检清单：输出 prompt 前逐层验证
+- Common Pitfalls 新增：evaluative emotion words 训练信号太弱，应替换为 Layer 2 视觉锚点词
+
+---
+
 ## v1.9.0 — 2026-04-17
 
 **重命名 skill**

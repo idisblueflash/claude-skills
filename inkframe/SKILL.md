@@ -1,6 +1,6 @@
 ---
 name: inkframe
-version: 1.9.0
+version: 2.0.0
 description: Generate Nano Banana (Google Gemini) prompts for cinematic newsletter cover images in dramatic ink storyboard style — extreme high-contrast black and white, bold brushstrokes, woodcut-like rendering, used in professional film and animation pre-visualization. Use this skill whenever the user wants to create a newsletter cover image, a cover visual, a hero image for an article, or any cinematic illustration prompt. Also trigger when the user mentions "Nano Banana", "newsletter cover", "cover image", "封面图", "storyboard style", or asks to generate an AI image prompt for editorial or storytelling purposes.
 ---
 
@@ -45,22 +45,118 @@ All prompts must encode these visual principles derived from classic cinematic i
 
 ---
 
+## Three-Layer Prompt Framework
+
+Every prompt is built in three layers. Layers 1 and 2 are the real work — Layer 3 is the finishing touch.
+
+---
+
+### Layer 1 — Concrete Nouns（必须）
+
+Structure: **主体 ＋ 动作 ＋ 环境 ＋ 光线**. The more specific the noun, the sharper the image.
+
+| Dimension | Question | Few-shot example |
+|-----------|----------|-----------------|
+| **主体** | 谁在？占画面多少？ | `a juvenile crow perched motionless at the top of a traffic light pole, occupying no more than 5% of frame` |
+| **动作** | 姿势/状态是什么？ | `wings folded tight, gaze locked downward — perfectly still` |
+| **环境** | 场景在哪？有什么物件？ | `city intersection viewed from steep high angle, zebra crossing stripes cut diagonally, buildings press in asymmetrically` |
+| **光线** | 这个情绪的光是什么光？ | `harsh overhead light bleaches crossing stripes white against ink-black asphalt` |
+
+---
+
+### Layer 2 — Visual Anchor Words（推荐）
+
+Don't name the emotion — translate it into **visual anchors AI recognizes**. These words co-occur with specific visual styles in training data. Evaluative words like `sad`, `beautiful`, `emotional` appear on too many unrelated images to carry signal.
+
+**情绪 → 视觉词对照（ink storyboard 适配版）：**
+
+| 你想表达 | ❌ 丢掉 | ✅ 换成 |
+|---------|--------|--------|
+| 孤独 | `lonely` | `tiny silhouette at rule-of-thirds corner, vast ink-black negative space, single overhead harsh light, facing away` |
+| 紧张 | `anxious` | `dutch tilt, hard side lighting, motion blur streaks cutting foreground, figure clipped at frame edge` |
+| 压迫 | `overwhelmed` | `near-90° bird's eye, environment fills 90% of frame, radial speed lines converging inward on subject` |
+| 专注/静 | `focused` | `subject perfectly still, all surroundings rendered as motion blur, single directional light on subject only` |
+| 传承/见证 | `meaningful` | `two subjects at different scales and elevation, one static / one mid-action, shared sightline across negative space` |
+| 危险/急迫 | `dangerous` | `extreme dutch tilt, bold horizontal motion streaks, radial speed lines radiating from impact point` |
+
+---
+
+### Layer 3 — Magic Words（可加，放末尾）
+
+These words have no direct semantic connection to the subject, but co-occur with strong visual styles in training data. Append at the **end of the prompt only** — never as substitutes for Layers 1 and 2.
+
+| Effect | Few-shot example |
+|--------|-----------------|
+| 整体质感提升 | `ultra-detailed, cinematic lighting, woodcut print quality` |
+| 胶片感/颗粒感 | `film grain, shot on ARRI, desaturated` |
+| 印刷感强化 | `woodcut print quality, bold ink linework, high contrast lithograph` |
+
+---
+
+## Complete Few-Shot Example
+
+The three layers assembled into a finished prompt:
+
+**场景：** 幼鸦站在红绿灯顶端俯视路口，母鸦在斑马线旁的核桃壳旁——见证与传承。
+
+```
+Generate a cinematic storyboard panel in dramatic ink illustration style —
+extreme high-contrast black and white, bold brushstrokes, woodcut-like
+rendering, the visual language of professional film pre-visualization.
+
+— LAYER 1: Concrete Nouns —
+High-angle view looking steeply down at a city intersection, slight dutch tilt.
+A juvenile crow perches motionless at the very top of a traffic light pole in
+the upper-left area of the frame, occupying no more than 5% of the frame.
+Wings folded tight, gaze locked downward — perfectly still.
+Far below on the asphalt near a pedestrian crossing, a mother crow — tiny,
+no more than 3% of the frame — stands beside a cracked walnut shell,
+mid-stride, moving toward the scattered shell fragments.
+Two lanes of traffic sweep through mid-frame as bold horizontal streaks of
+motion blur. The pedestrian crossing zebra stripes cut diagonally across
+the lower third. Buildings and road markings press in from all sides —
+NOT symmetrically.
+Harsh overhead light bleaches the crossing stripes white against ink-black
+asphalt. Radial speed lines streak outward from the walnut shell on the road.
+
+— LAYER 2: Visual Anchor Words —
+Two subjects at different scales and elevation, one static / one mid-action,
+shared sightline across negative space. Subject perfectly still, all
+surroundings in motion blur, single directional light on subject only.
+
+Render in dramatic ink storyboard style: extreme black and white ink contrast,
+almost zero gray midtones, bold heavy brushstrokes, rough expressive lines,
+woodcut-like rendering. No soft shading. No color.
+No text, no letters, no handwriting, no annotations, no captions anywhere
+in the image.
+
+— LAYER 3: Magic Words —
+ultra-detailed, cinematic lighting, woodcut print quality
+
+Aspect ratio: 16:6 ultra-wide cinematic panel.
+```
+
+---
+
 ## Prompt Formula
 
-Build every prompt using this structure:
+Fill in three layers in order:
 
 ```
 Generate a cinematic storyboard panel in dramatic ink illustration style — 
 extreme high-contrast black and white, bold brushstrokes, woodcut-like 
 rendering, the visual language of professional film pre-visualization.
 
-[CAMERA ANGLE — be extreme and specific]
-[SUBJECT + ACTION — who is doing what]
-[SCALE RATIO — subject must feel small, e.g. "occupying no more than 15% of frame"]
-[ENVIRONMENT — describe what surrounds and overwhelms the subject]
-[ASYMMETRIC INTRUSION — elements pressing in from all sides, NOT symmetrically]
-[LIGHTING — harsh, directional, cinematic source]
-[DYNAMIC LINES — ripples, speed lines, radial strokes]
+— LAYER 1: Concrete Nouns —
+[CAMERA ANGLE — extreme and specific]
+[SUBJECT — who, scale ratio, e.g. "occupying no more than 5% of frame"]
+[ACTION — posture/state with specific physical detail]
+[ENVIRONMENT — scene, objects, asymmetric intrusion — NOT symmetrically]
+[LIGHTING — light source position, hardness, direction]
+[DYNAMIC LINES — speed lines, ripples, radial strokes]
+
+— LAYER 2: Visual Anchor Words —
+[Replace mood adjectives with visual anchors from the Layer 2 table above]
 
 Render in dramatic ink storyboard style: extreme black and white ink contrast, 
 almost zero gray midtones, bold heavy brushstrokes, rough expressive lines, 
@@ -68,7 +164,9 @@ woodcut-like rendering. No soft shading. No color.
 No text, no letters, no handwriting, no annotations, no captions anywhere 
 in the image.
 
-Mood: [choose: trapped / hopeful / isolated / triumphant / tense / awe-struck]
+— LAYER 3: Magic Words —
+[Append style amplifiers here, e.g. "cinematic lighting, ultra-detailed, woodcut print quality"]
+
 Aspect ratio: 16:6 ultra-wide cinematic panel.
 ```
 
@@ -250,7 +348,15 @@ Camera: ~90° bird's eye | Figure: center, tiny (○) | Mood: trapped
 Ask: **"構圖大致這樣，要調整嗎？"** — wait for confirmation or edits before proceeding.
 
 ### Step 10: Write and deliver the prompt
-After the user confirms the composition, output the full prompt in a code block.
+After the user confirms the composition, run a three-layer self-check before outputting:
+
+| Layer | Check |
+|-------|-------|
+| **Layer 1** | Subject, action, environment, lighting all filled with **specific nouns**? No dimension left vague? |
+| **Layer 2** | Mood expressed via **visual anchor words**? No evaluative adjectives (`sad`, `lonely`, `beautiful`, `emotional`)? |
+| **Layer 3** | Magic words appended at the **end** of the prompt, not mixed into Layer 1? |
+
+Then output the full prompt in a code block.
 
 The prompt can be used in two ways:
 
@@ -403,6 +509,7 @@ Aspect ratio: 16:6 ultra-wide cinematic panel.
 - ❌ **Generic "black and white"** — always specify "woodcut-like", "heavy ink", "bold brushstrokes"
 - ❌ **Neutral mood** — always end with a specific emotional direction
 - ❌ **Handwritten text / annotations** — always include "No text, no letters, no handwriting, no annotations, no captions anywhere in the image"
+- ❌ **Evaluative emotion words** — `beautiful`, `sad`, `lonely`, `emotional`, `touching` appear on too many unrelated training images to carry signal; replace with Layer 2 visual anchor words
 
 ---
 
