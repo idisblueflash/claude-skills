@@ -1,4 +1,14 @@
-# Changelog — newsletter-cover-image skill
+# Changelog — inkframe skill
+
+## v1.9.0 — 2026-04-17
+
+**重命名 skill**
+
+- Skill 名稱從 `show-dont-tell-image` 改為 `inkframe`
+- 目錄從 `.claude/skills/show-dont-tell-image/` 改為 `.claude/skills/inkframe/`
+- 更簡短易記：ink（風格）+ frame（構圖/分鏡）
+
+---
 
 ## v1.8.0 — 2026-04-17
 

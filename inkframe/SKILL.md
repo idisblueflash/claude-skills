@@ -1,6 +1,6 @@
 ---
-name: newsletter-cover-image
-version: 1.8.0
+name: inkframe
+version: 1.9.0
 description: Generate Nano Banana (Google Gemini) prompts for cinematic newsletter cover images in dramatic ink storyboard style — extreme high-contrast black and white, bold brushstrokes, woodcut-like rendering, used in professional film and animation pre-visualization. Use this skill whenever the user wants to create a newsletter cover image, a cover visual, a hero image for an article, or any cinematic illustration prompt. Also trigger when the user mentions "Nano Banana", "newsletter cover", "cover image", "封面图", "storyboard style", or asks to generate an AI image prompt for editorial or storytelling purposes.
 ---
 
@@ -262,18 +262,18 @@ Use `scripts/generate-cover.py` in this repo (requires `OPENROUTER_API_KEY` in `
 
 ```bash
 # First generation — include reference images downloaded in Step 6
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py "YOUR PROMPT" \
+.claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" \
   --input output/covers/references/TOPIC-1.jpg \
           output/covers/references/TOPIC-2.jpg \
           output/covers/references/TOPIC-3.jpg \
   --size preview
 
 # Subsequent edits — use the generated image as base
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py "YOUR PROMPT" --size preview   # draft
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py "YOUR PROMPT" --size medium    # review
+.claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" --size preview   # draft
+.claude/skills/inkframe/scripts/generate-cover.py "YOUR PROMPT" --size medium    # review
 
 # Edit an existing image (image-to-image)
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py "YOUR EDIT INSTRUCTION" \
+.claude/skills/inkframe/scripts/generate-cover.py "YOUR EDIT INSTRUCTION" \
   --input output/covers/cover-medium-xxx.png \
   --size medium
 ```
@@ -289,7 +289,7 @@ All edits use `--input` mode (image-to-image). Pass the saved image path and des
 
 ### Local adjustments
 ```bash
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py \
+.claude/skills/inkframe/scripts/generate-cover.py \
   "Reduce the number of ants to one third. Keep everything else identical." \
   --input output/covers/cover-medium-xxx.png --size medium
 ```
@@ -298,7 +298,7 @@ All edits use `--input` mode (image-to-image). Pass the saved image path and des
 Apply flat comic-book color to a finished B&W image:
 
 ```bash
-.claude/skills/show-dont-tell-image/scripts/generate-cover.py \
+.claude/skills/inkframe/scripts/generate-cover.py \
   "Colorize using traditional comic book CMYK style. Limited flat palette — bold cyan, magenta, yellow, warm tan/brown. Ink-black lines stay sharp. Flat fills, no gradients. Style: 1960s–1980s printed comic page. Keep all composition and linework identical." \
   --input output/covers/cover-medium-xxx.png --size medium
 ```
